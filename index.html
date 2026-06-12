@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerMatch - Resume Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-briefcase"></i>
+                <span>CareerMatch</span>
+            </div>
+            <div class="navbar-subtitle">Smart Resume Analysis</div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header-section">
+            <div class="header-content">
+                <h1>Optimize Your Resume</h1>
+                <p>Understand how well your resume aligns with the job you're pursuing. Get instant, actionable feedback to improve your chances.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="two-column-layout">
+                    <!-- Resume Upload Card -->
+                    <div class="input-card">
+                        <div class="card-header">
+                            <h2>Your Resume</h2>
+                            <span class="card-icon"><i class="fas fa-file-pdf"></i></span>
+                        </div>
+                        
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-arrow-up"></i>
+                            </div>
+                            <p class="upload-title">Upload your resume</p>
+                            <p class="upload-subtitle">Drag and drop or click to browse</p>
+                            <p class="upload-formats">PDF, DOCX, or TXT</p>
+                            <input type="file" id="resumeFile" accept=".pdf,.docx,.doc,.txt">
+                        </div>
+                        <p id="fileStatus" class="file-status"></p>
+                        <button class="btn btn-secondary btn-block" onclick="clearResume()">Clear File</button>
+                    </div>
+
+                    <!-- Job Description Card -->
+                    <div class="input-card">
+                        <div class="card-header">
+                            <h2>Job Description</h2>
+                            <span class="card-icon"><i class="fas fa-briefcase"></i></span>
+                        </div>
+                        
+                        <textarea 
+                            id="jobDescription" 
+                            placeholder="Paste the complete job description here. Include requirements, responsibilities, and qualifications for better analysis..."
+                            class="job-textarea"></textarea>
+                        <button class="btn btn-secondary btn-block" onclick="clearJobDesc()">Clear Text</button>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <div class="analyze-section">
+                    <button class="btn btn-primary btn-large" id="analyzeBtn" onclick="analyzeResume()">
+                        <i class="fas fa-bolt"></i>
+                        Analyze Match
+                    </button>
+                    <p class="analyze-hint">This usually takes 5-10 seconds</p>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-container" id="loading">
+                <div class="loading-card">
+                    <div class="animated-loader">
+                        <div class="loader-circle"></div>
+                    </div>
+                    <h3>Analyzing Your Match</h3>
+                    <p>We're comparing your resume with the job description...</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="results">
+                <!-- Score Card -->
+                <div class="score-card">
+                    <div class="score-container">
+                        <div class="score-circle-wrapper">
+                            <div class="score-circle" id="scoreCircle">--</div>
+                            <div class="score-label">Match Score</div>
+                        </div>
+                        <div class="score-explanation">
+                            <p id="scoreExplanation"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Grid -->
+                <div class="results-grid">
+                    <!-- Key Strengths -->
+                    <div class="result-card strength-card">
+                        <div class="result-header">
+                            <h3>
+                                <span class="result-icon success"><i class="fas fa-check-circle"></i></span>
+                                Key Strengths
+                            </h3>
+                        </div>
+                        <ul class="result-list" id="strengths"></ul>
+                    </div>
+
+                    <!-- Key Gaps -->
+                    <div class="result-card gap-card">
+                        <div class="result-header">
+                            <h3>
+                                <span class="result-icon warning"><i class="fas fa-exclamation-circle"></i></span>
+                                Areas to Develop
+                            </h3>
+                        </div>
+                        <ul class="result-list" id="gaps"></ul>
+                    </div>
+
+                    <!-- Missing Keywords -->
+                    <div class="result-card keyword-card">
+                        <div class="result-header">
+                            <h3>
+                                <span class="result-icon info"><i class="fas fa-lightbulb"></i></span>
+                                Missing Keywords
+                            </h3>
+                        </div>
+                        <ul class="result-list" id="keywords"></ul>
+                    </div>
+
+                    <!-- Improvement Suggestions -->
+                    <div class="result-card suggestion-card">
+                        <div class="result-header">
+                            <h3>
+                                <span class="result-icon primary"><i class="fas fa-rocket"></i></span>
+                                How to Improve
+                            </h3>
+                        </div>
+                        <ul class="result-list" id="suggestions"></ul>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="downloadReport()">
+                        <i class="fas fa-download"></i>
+                        Download Report
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyResults()">
+                        <i class="fas fa-copy"></i>
+                        Copy Suggestions
+                    </button>
+                    <button class="btn btn-secondary" onclick="newAnalysis()">
+                        <i class="fas fa-redo"></i>
+                        New Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>CareerMatch helps you optimize your resume for every opportunity. Your success is our mission.</p>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>
